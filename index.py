@@ -3,7 +3,8 @@ import docx
 import re
 from openpyxl import Workbook, load_workbook
 import os
-from win32com.client import Dispatch
+import subprocess
+#from win32com.client import Dispatch
 
 
 def list_files_in_directory(directory_path):
@@ -29,6 +30,7 @@ def list_files_in_directory(directory_path):
     return files if files else None
 
 
+'''
 def convert_doc_to_docx(doc_path):
     word = Dispatch("Word.Application")
     
@@ -41,6 +43,17 @@ def convert_doc_to_docx(doc_path):
     word.Quit()
 
     return docx_path
+'''
+
+def convert_doc_to_docx(input_file):
+    # Convert .doc to .docx using LibreOffice
+    command = ['libreoffice', '--headless', '--convert-to', 'docx', input_file, '--outdir', os.path.dirname(output_file)]
+    subprocess.call(command)
+    docx_file = input_file.replace('.doc', '.docx')
+    
+    return docx_file
+    
+ 
 
 def extract_text_from_pdf(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:

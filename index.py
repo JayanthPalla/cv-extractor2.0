@@ -30,21 +30,6 @@ def list_files_in_directory(directory_path):
     return files if files else None
 
 
-'''
-def convert_doc_to_docx(doc_path):
-    word = Dispatch("Word.Application")
-    
-    doc = word.Documents.Open(doc_path)
-    docx_path = os.path.splitext(doc_path)[0] + ".docx"
-    
-    doc.SaveAs(docx_path, FileFormat=16)
-    
-    doc.Close()
-    word.Quit()
-
-    return docx_path
-'''
-
 def convert_doc_to_docx(input_file):
     # Convert .doc to .docx using LibreOffice
     command = ['libreoffice', '--headless', '--convert-to', 'docx', input_file, '--outdir', os.path.dirname(output_file)]
